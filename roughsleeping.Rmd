@@ -1,0 +1,71 @@
+---
+title: "Sleeping  Rough: R analysis"
+author: "Paul Bradshaw"
+date: "25 January 2017"
+output: html_document
+---
+
+The data for this code comes from [DCLG statistics on rough sleeping](https://www.gov.uk/government/statistics/rough-sleeping-in-england-autumn-2016). 
+
+We are going to be dealing with an Excel document, so first we need the packages to be able to read that:
+
+```{r}
+install.packages("readxl")
+library(readxl)
+```
+
+Like many government datasets, this is an ugly spreadsheet with unnecessary empty rows which we need to get rid of when we export it:
+
+```{r}
+#At some point it would be nice to adapt this code to grab it directly from the webpage, but for now you need to download it first
+roughsleeping16 <- read_excel('Rough_Sleeping_Autumn_2016_Final_Tables.xls', sheet=1, skip=3)
+```
+
+Even with this, the data still has problems, including summary rows at the top that are not about numbers but percentages, and rows containing notes at the end.
+
+It's easy to overlook those notes if you're using script to pull summary statistics, so let's make sure we grab those.
+
+To do that, let's check how many rows have been grabbed. The function `nrow` tells us the number of rows in a dataset:
+
+```{r}
+nrow(roughsleeping16)
+```
+
+We know there are 326 authorities in this dataset, and 11 rows before those begin so let's grab any rows after row 338 which should contain notes.
+
+```{r}
+notes <- roughsleeping16[c(338:nrow(roughsleeping16)),]
+```
+
+What the notes reveal is a really problematic aspect of this data: the methodology can change from authority to authority, from year to year, and both. So all data must be treated with caution. To quote The Guardian report on this data: 
+
+> "The robustness of official government rough sleeper figures was [questioned just over a year ago by the UK Statistics Authority (UKSA)](https://www.statisticsauthority.gov.uk/publication/statistics-on-homelessness-and-rough-sleeping-in-england-department-for-communities-and-local-government/). It ruled that they lacked 'trustworthiness', were vulnerable to political manipulation, and did not meet the quality standard to be national statistics."
+
+We want to sort the data by the final column. This has quite a long name - *"2016 Rough Sleeping Rate (per 1,000 households)"* - and that might change. So here's an easier way to find out what it's called:
+
+```{r}
+colnames(roughsleeping16)[11]
+```
+
+Or, if you didn't know there would be 11 columns, you can count them using `ncol` and use that as an index instead:
+
+```{r}
+colnames(roughsleeping16)[ncol(roughsleeping16)]
+```
+
+Now rename that column, and then sort by it like so:
+
+```{r}
+##Change the name of the last column to 'rate'
+colnames(roughsleeping16)[ncol(roughsleeping16)] <- 'rate'
+#use the order function to order by that column, descending (the minus)
+sortedbyrate <- roughsleeping16[order(-roughsleeping16$rate),]
+```
+
+To focus on the top 10 we can put those in a separate object using `head` and specifying the first 10 rows:
+
+```{r}
+top10 <- head(sortedbyrate, 10)
+```
+
+
