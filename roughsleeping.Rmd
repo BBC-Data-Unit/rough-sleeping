@@ -41,6 +41,10 @@ What the notes reveal is a really problematic aspect of this data: the methodolo
 
 > "The robustness of official government rough sleeper figures was [questioned just over a year ago by the UK Statistics Authority (UKSA)](https://www.statisticsauthority.gov.uk/publication/statistics-on-homelessness-and-rough-sleeping-in-england-department-for-communities-and-local-government/). It ruled that they lacked 'trustworthiness', were vulnerable to political manipulation, and did not meet the quality standard to be national statistics."
 
+The notes also use *colour* to encode data, which is a big no-no. On the spreadsheet the note "*Denotes Local Authority has conducted a street count.*" is in a grey-highlighted cell. But you have to *see* the cell to understand that this means 'cells in grey denotes a street count'. In other words it is not machine-readable. At least "*Figures in red denotes authorities who reported an estimate of rough sleepers without consultation with any agencies.*" mentions the colour red - although again there is no way of distinguishing figures which use red text from those in grey-highlighted text, and those in neither. This is a particular problem with government data releases. [There are ways of sorting by cell colour in Excel](https://support.office.com/en-us/article/Sort-data-in-a-range-or-table-62d0b95d-2a90-4610-a6ae-2e545c4a4654?ui=en-US&rs=en-US&ad=US#__toc246836973) but doing so in R... well I don't know if you can.
+
+## Sorting to grab the 10 authorities with the highest rough sleeping rates
+
 We want to sort the data by the final column. This has quite a long name - *"2016 Rough Sleeping Rate (per 1,000 households)"* - and that might change. So here's an easier way to find out what it's called:
 
 ```{r}
