@@ -72,4 +72,17 @@ To focus on the top 10 we can put those in a separate object using `head` and sp
 top10 <- head(sortedbyrate, 10)
 ```
 
+## Adding data on changes over time
+
+Our data includes figures for each year from 2010 to 2015 - but it doesn't include a column telling us how much it changed over that period. This code creates that column based on that calculation:
+
+```{r}
+roughsleeping16$change10to15 <- roughsleeping16$`2015.000000` - roughsleeping16$`2010.000000`
+```
+
+To calculate a percentage change you divide the change by the original figure. In other words, if something has gone from 100 to 110 the change is 10, and the original figure is 100. 10/100 = 0.10 or a 10% rise.
+
+```{r}
+roughsleeping16$percchange10to15 <- roughsleeping16$change10to15/roughsleeping16$`2010.000000`
+```
 
