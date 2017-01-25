@@ -74,15 +74,23 @@ top10 <- head(sortedbyrate, 10)
 
 ## Adding data on changes over time
 
-Our data includes figures for each year from 2010 to 2015 - but it doesn't include a column telling us how much it changed over that period. This code creates that column based on that calculation:
+Our data includes figures for each year from 2010 to 2016 - but it doesn't include a column telling us how much it changed over that period. This code creates that column based on that calculation:
 
 ```{r}
-roughsleeping16$change10to15 <- roughsleeping16$`2015.000000` - roughsleeping16$`2010.000000`
+roughsleeping16$change10to16 <- roughsleeping16$`2016.000000` - roughsleeping16$`2010.000000`
 ```
 
 To calculate a percentage change you divide the change by the original figure. In other words, if something has gone from 100 to 110 the change is 10, and the original figure is 100. 10/100 = 0.10 or a 10% rise.
 
 ```{r}
-roughsleeping16$percchange10to15 <- roughsleeping16$change10to15/roughsleeping16$`2010.000000`
+roughsleeping16$percchange10to16 <- roughsleeping16$change10to16/roughsleeping16$`2010.000000`
+```
+
+Note that if the figure in 2010 or 2016 was 0 then the result will be `Inf`, because you can't divide anything by 0. Likewise we should be careful about any years where there is no data, and making sure that isn't interpreted as 0 (a very different thing).
+
+And now that some new data has been created, export it as a CSV file:
+
+```{r}
+write.csv(roughsleeping16,'roughsleeping2010_16.csv')
 ```
 
