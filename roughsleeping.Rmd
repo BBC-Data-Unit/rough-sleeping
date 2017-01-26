@@ -94,3 +94,20 @@ And now that some new data has been created, export it as a CSV file:
 write.csv(roughsleeping16,'roughsleeping2010_16.csv')
 ```
 
+## Creating charts to show the results
+
+A basic histogram will show the *distribution* of results. The function `hist` creates one based on a specified column:
+
+```{r}
+hist(roughsleeping16$percchange10to16)
+```
+
+The results show that most results are between 0 and 5 (500%), or below 0 (less than a 100% rise)
+
+To create a **bar chart** we need to first put the data in a table - and then use `barplot` to show that table as a bar chart:
+
+```{r}
+changeovertime <- table(roughsleeping16$percchange10to16)
+barplot(changeovertime)
+```
+
