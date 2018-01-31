@@ -14,3 +14,6 @@ In January 2017 we [reported on new data showing that more than 4,000 people a n
 * Infographic: Sleeping on the streets
 * Line chart: Rise in rough sleeping across England
 
+## Related repositories
+
+We [reported on similar figures a year later, in January 2018](http://www.bbc.co.uk/news/uk-england-42817123). [The repo for that story can be found here](https://github.com/BBC-Data-Unit/rough-sleeping-2017). You can [find all our repos tagged 'homelessness' here](https://github.com/search?q=topic%3Ahomelessness+org%3ABBC-Data-Unit+fork%3Atrue)
